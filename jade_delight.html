@@ -71,9 +71,6 @@ function makeSelect(name, minRange, maxRange)
 
 
 </script>
-
-	Delivery
-</p>
 <table border="0" cellpadding="3">
   <tr>
     <th><label>Select Item</label></th>
@@ -95,13 +92,13 @@ function makeSelect(name, minRange, maxRange)
   document.writeln(s);
 </script>
 </table>
-<p>Subtotal: 
-   $<input type="text"  name='subtotal' id="subtotal" />
+<p><label>Subtotal: 
+	$</label><input type="text"  name='subtotal' id="subtotal" />
 </p>
-<p>Mass tax 6.25%:
-  $ <input type="text"  name='tax' id="tax" />
+<p><label>Mass tax 6.25%:
+	$ </label><input type="text"  name='tax' id="tax" />
 </p>
-<p>Total: $ <input type="text"  name='total' id="total" />
+	<p><label>Total: $ </label><input type="text"  name='total' id="total" />
 </p>
 
 <input class="button" id="btn" type = "button" value = "Submit Order" />
