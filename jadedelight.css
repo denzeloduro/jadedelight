@@ -1,0 +1,55 @@
+.body-container{
+    width: 60%;
+    margin: auto;
+}
+
+.h1{
+    text-align: center;
+    color:#772e25;
+    font: bold 36px Lato, Avenir, Source Sans Pro, Helvetica, sans-serif;
+    width: 80%
+    margin: auto;
+    padding-top: 50px;
+}
+
+.my-form{
+    padding:20px;
+
+}
+
+
+.my-form.form-group{
+    padding-bottom: 20px
+}
+
+.my-form label{
+    display:block;
+    font: bold 18px Lato, Avenir, Source Sans Pro, Helvetica, sans-serif;
+;
+}
+
+.my-form input[type="text"], .my-form textarea{
+    padding: 10px;
+    width:100%;
+    margin: auto;
+
+}
+
+.button{
+    background-color: #c44536;
+    color: #ffffff; 
+    padding: 5px 25px;
+    font: 14px Lato, Avenir, Source Sans Pro, Helvetica, sans-serif;
+    border-radius: 3px;
+
+}
+
+.button:hover {
+    background-color: #B53F31;
+
+
+
+
+
+
+}

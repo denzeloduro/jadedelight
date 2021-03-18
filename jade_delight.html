@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Jade Delight</title>
+</head>
+	<link rel="stylesheet" type="text/css" href="jadedelight.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<body>
+
+
+
+<div class="h1">Jade Delight</div>
+<script language="javascript">
+
+function MenuItem(name, cost)
+{
+	this.name = name;
+	this.cost=cost;
+}
+
+menuItems = new Array(
+	new MenuItem("Chicken Chop Suey", 4.5),
+	new MenuItem("Sweet and Sour Pork", 6.25),
+	new MenuItem("Shrimp Lo Mein", 5.25),
+	new MenuItem("Moo Shi Chicken", 6.5),
+	new MenuItem("Fried Rice", 2.35)
+);
+
+function makeSelect(name, minRange, maxRange)
+{
+	var t= "";
+	t = "<select name='" + name + "' size='1'>";
+	for (j=minRange; j<=maxRange; j++)
+	   t += "<option>" + j + "</option>";
+	t+= "</select>"; 
+	return t;
+}
+</script>
+
+<div class="body-container"> 
+<form class="my-form">
+<div class= "form-group"><p><label>First Name: </label><input type="text"  name='fname' /></p></div>
+<div class= "form-group"><p><label>Last Name*: </label><input type="text"  name='lname' /></p></div>
+<div class= "form-group"><p class="street"><label>Street: </label><input id="street" type="text"  name='street' /></p></div>
+<div class= "form-group"><p class="city" ><label>City: </label><input id="city" type="text"  name='city' /></p></div>
+<div class= "form-group"><p><label>Phone*: </label><input type="text"  name='phone' /></p></div>
+<p> 
+	<input id="pickup" type="radio"  name="p_or_d" value = "pickup" checked="checked"/>Pickup  
+	<input id="delivery" type="radio"  name='p_or_d' value = 'delivery'/>
+
+
+<!-- a function in jquery that allows show/hide upon choose delivery or pickup -->
+<script >
+	$(document).ready(function(){
+		$(function() {
+    $("p.street").hide();
+    $("p.city").hide();
+});
+		$("#pickup").click(function(){
+			$( "p.street" ).hide();
+			$( "p.city" ).hide();
+
+		});
+	$("#delivery").click(function(){
+			$( "p.street" ).show();
+			$( "p.city" ).show();
+
+		}); 
+		});
+
+
+</script>
+
+	Delivery
+</p>
+<table border="0" cellpadding="3">
+  <tr>
+    <th><label>Select Item</label></th>
+    <th><label>Item Name</label></th>
+    <th><label>Cost Each</label></th>
+    <th><label>Total Cost</label></th>
+  </tr>
+<script language="javascript">
+
+  var s = "";
+  for (i=0; i< menuItems.length; i++)
+  {
+	  s += "<tr><td>";
+	  s += makeSelect("quan" + i, 0, 10);
+	  s += "</td><td>" + menuItems[i].name + "</td>";
+	  s += "<td> $ " + menuItems[i].cost.toFixed(2) + "</td>";
+	  s += "<td>$<input type='text' name='cost'/></td></tr>";
+  }
+  document.writeln(s);
+</script>
+</table>
+<p>Subtotal: 
+   $<input type="text"  name='subtotal' id="subtotal" />
+</p>
+<p>Mass tax 6.25%:
+  $ <input type="text"  name='tax' id="tax" />
+</p>
+<p>Total: $ <input type="text"  name='total' id="total" />
+</p>
+
+<input class="button" id="btn" type = "button" value = "Submit Order" />
+
+</form>
+</body>
+<script>
+
+/* declaring variables*/
+
+	var sTotal = 0.00
+	var tCost = 0.00
+	var printOrder =""
+	var selectArray = []
+
+/* a function in javascript that maps price unto selected quantity*/
+
+	selectArray = document.getElementsByTagName('select')
+	for (let i=0; i < selectArray.length; i++){
+		  selectArray[i].onchange = function(){
+		  	let cprice = menuItems[i].cost
+		  	let ind = selectArray[i].selectedIndex
+		  	if (ind > 0){
+		  		printOrder += "\n" + ind.toString() + " " + menuItems[i].name 
+		  
+		  	}
+		  	
+		    var result = ind * cprice
+		    var res = result.toFixed(2)
+		    sTotal = Number(sTotal) + Number(res)
+		    var masstax = 0.0625 * sTotal
+		    tCost = masstax + sTotal 
+            
+            
+		    document.getElementsByName("cost")[i].value = res
+		    document.getElementsByName("subtotal")[0].value = sTotal.toFixed(2)
+		    document.getElementsByName("tax")[0].value = masstax.toFixed(2)
+		    document.getElementsByName("total")[0].value = tCost.toFixed(2)
+
+
+		  }
+		 
+	}
+   
+   
+  
+/* a function that validates phonenumber*/
+
+     function isAlphaOrParen(str) {
+       return /^[a-zA-Z()]+$/.test(str);
+       }
+     
+    document.getElementById("btn").onclick = function() {
+    	  
+			/* gets all cost and inputs them in an array */	
+    	   var lastName;
+    	   var phoneNum;
+    	  
+    	   let TotalcostArray = []
+    	   let submitCounter = 0
+    	   TotalcostArray = document.getElementsByName('cost')
+    	   for (let i=0; i <TotalcostArray.length;i++){
+    	   	   if (TotalcostArray[i].value.length > 0 ){
+    	   	   	  submitCounter +=1
+    	   	   }
+    	   	   	
+    	   }
+    	   if (submitCounter < 1){
+    	   	 alert("To submit, you have to place an order")
+
+    	   }
+    	   else{
+
+    	   	  if (document.getElementById('delivery').checked) {
+
+    	   	    if (document.getElementsByName('lname')[0].value.length == 0 ){
+    	   	    	alert("Please enter your last name")
+    	   	    }
+    	   	    else{
+    	   	    	lastName = document.getElementsByName('lname')[0].value
+    	   	    	if (document.getElementsByName('phone')[0].value.length != 10) {
+    	   	    	alert("You must provide a 10-digit phone number")
+    	   	       }
+    	   	        else {
+    	   	    	phoneNum = document.getElementsByName('phone')[0].value
+    	   	    	alert("Thank you for ordering from Jade Delight. \nHere is your order: " + printOrder + "\nYour total cost is: $" + tCost.toFixed(2) +"\n Your order will be ready in 30 minutes.")
+    	   	    	}   	        
+    	   	        }
+    	   	    }
+
+      	 
+    	   	 
+    	   	 else {   	
+    	   	       if (document.getElementsByName('lname')[0].value.length == 0 ){
+    	   	    	alert("Please enter your last name")
+    	   	    }
+    	   	    else{
+    	   	    	lastName = document.getElementsByName('lname')[0].value
+    	   	    	if (document.getElementsByName('phone')[0].value.length != 10) {
+    	   	    	alert("You must provide a 10-digit phone number")
+    	   	       }
+    	   	        else {
+    	   	    	phoneNum = document.getElementsByName('phone')[0].value
+    	   	    	alert("Thank you for ordering from Jade Delight. \nHere is your order: " + printOrder + "\nYour total cost is: $" + tCost.toFixed(2) +"\n You can pick up your order 15 minutes.")
+    	   	    	
+    	   	    	}    	   	  
+    	   	        }
+    	   	    }
+
+
+
+    	   	 }
+
+
+    	   
+  }
+   </script> 	
+   </div>   
+</html>
