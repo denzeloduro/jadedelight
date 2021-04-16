@@ -9,14 +9,16 @@
 <body>
 
 
-
 <div class="h1">Jade Delight</div>
+
+
+
 <script language="javascript">
 
 function MenuItem(name, cost)
 {
 	this.name = name;
-	this.cost=cost;
+	this.cost = cost;
 }
 
 menuItems = new Array(
@@ -39,7 +41,10 @@ function makeSelect(name, minRange, maxRange)
 </script>
 
 <div class="body-container"> 
-<form class="my-form">
+<form class="my-form" method ='get' action = 'http://denzeloduro.infinityfreeapp.com/order.php'
+onsubmit="return Validate()">
+
+
 <div class= "form-group"><p><label>First Name: </label><input type="text"  name='fname' /></p></div>
 <div class= "form-group"><p><label>Last Name*: </label><input type="text"  name='lname' /></p></div>
 <div class= "form-group"><p class="street"><label>Street: </label><input id="street" type="text"  name='street' /></p></div>
@@ -71,6 +76,7 @@ function makeSelect(name, minRange, maxRange)
 
 
 </script>
+
 <table border="0" cellpadding="3">
   <tr>
     <th><label>Select Item</label></th>
@@ -92,16 +98,17 @@ function makeSelect(name, minRange, maxRange)
   document.writeln(s);
 </script>
 </table>
-<p><label>Subtotal: 
-	$</label><input type="text"  name='subtotal' id="subtotal" />
+<p>Subtotal: 
+   $<input type="text"  name='subtotal' id="subtotal" />
 </p>
-<p><label>Mass tax 6.25%:
-	$ </label><input type="text"  name='tax' id="tax" />
+<p>Mass tax 6.25%:
+  $ <input type="text"  name='tax' id="tax" />
 </p>
-	<p><label>Total: $ </label><input type="text"  name='total' id="total" />
+<p>Total: $ <input type="text"  name='total' id="total" />
 </p>
+<p> <input type="hidden" name="pr" id="printo"/> </p>
 
-<input class="button" id="btn" type = "button" value = "Submit Order" />
+<input class="button" id="btn" type = "submit" value = "Submit Order" />
 
 </form>
 <script>
@@ -150,7 +157,7 @@ function makeSelect(name, minRange, maxRange)
        return /^[a-zA-Z()]+$/.test(str);
        }
      
-    document.getElementById("btn").onclick = function() {
+    function Validate() {
     	  
 			/* gets all cost and inputs them in an array */	
     	   var lastName;
@@ -183,7 +190,8 @@ function makeSelect(name, minRange, maxRange)
     	   	       }
     	   	        else {
     	   	    	phoneNum = document.getElementsByName('phone')[0].value
-    	   	    	alert("Thank you for ordering from Jade Delight. \nHere is your order: " + printOrder + "\nYour total cost is: $" + tCost.toFixed(2) +"\n Your order will be ready in 30 minutes.")
+
+    	   	    	
     	   	    	}   	        
     	   	        }
     	   	    }
@@ -201,7 +209,6 @@ function makeSelect(name, minRange, maxRange)
     	   	       }
     	   	        else {
     	   	    	phoneNum = document.getElementsByName('phone')[0].value
-    	   	    	alert("Thank you for ordering from Jade Delight. \nHere is your order: " + printOrder + "\nYour total cost is: $" + tCost.toFixed(2) +"\n You can pick up your order 15 minutes.")
     	   	    	
     	   	    	}    	   	  
     	   	        }
@@ -211,10 +218,12 @@ function makeSelect(name, minRange, maxRange)
 
     	   	 }
 
+           document.getElementsByName("pr")[0].value = printOrder;
+
 
     	   
   }
    </script> 	
-   </div>
-</body>
+   </div>  
+   </body> 
 </html>
